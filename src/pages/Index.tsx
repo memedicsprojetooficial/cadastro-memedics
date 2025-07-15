@@ -70,6 +70,13 @@ const Index = () => {
       <div className="max-w-2xl mx-auto">
         <Card className="shadow-xl border-0 bg-white/80 backdrop-blur-sm">
           <CardHeader className="text-center pb-8">
+            <div className="flex justify-center mb-4">
+              <img 
+                src="/lovable-uploads/25ea1f7e-cc95-4a16-8d57-081933b730a9.png" 
+                alt="ME.MEDICS - Consultórios Compartilhados" 
+                className="h-16 w-auto"
+              />
+            </div>
             <CardTitle className="text-3xl font-bold bg-gradient-to-r from-blue-600 to-purple-600 bg-clip-text text-transparent">
               Formulário de Cadastro
             </CardTitle>
