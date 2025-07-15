@@ -7,6 +7,10 @@ import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from '@
 import { Button } from '@/components/ui/button';
 import { toast } from '@/hooks/use-toast';
 import MultiSelect from '@/components/MultiSelect';
+import LocalidadeOptions from "@/data/LocalidadeOptions.tsx";
+import TipoLoginOptions from "@/data/TipoLoginOptions.tsx";
+import EspecialidadeOptions from "@/data/EspecialidadeOptions.tsx";
+import TipoConselhoOptions from "@/data/TipoConselhoOptions.tsx";
 
 const Index = () => {
   const [formData, setFormData] = useState({
@@ -14,44 +18,13 @@ const Index = () => {
     tipoLogin: [] as string[],
     nomeCompleto: '',
     email: '',
-    cpf: '',
+    document: '',
     numeroConselho: '',
     tipoConselho: '',
     especialidade: ''
   });
 
-  const localidadeOptions = [
-    { value: 'global-office', label: 'Global Office' },
-    { value: 'plaza-office', label: 'Plaza Office' }
-  ];
 
-  const tipoLoginOptions = [
-    { value: 'rede', label: 'Rede' },
-    { value: 'clavaconsult', label: 'ClavaConsult' }
-  ];
-
-  const especialidadeOptions = [
-    { value: 'cardiologia', label: 'Cardiologia' },
-    { value: 'dermatologia', label: 'Dermatologia' },
-    { value: 'pediatria', label: 'Pediatria' },
-    { value: 'ortopedia', label: 'Ortopedia' },
-    { value: 'neurologia', label: 'Neurologia' },
-    { value: 'ginecologia', label: 'Ginecologia e Obstetrícia' },
-    { value: 'urologia', label: 'Urologia' },
-    { value: 'oftalmologia', label: 'Oftalmologia' },
-    { value: 'otorrinolaringologia', label: 'Otorrinolaringologia' },
-    { value: 'psiquiatria', label: 'Psiquiatria' },
-    { value: 'anestesiologia', label: 'Anestesiologia' },
-    { value: 'radiologia', label: 'Radiologia' },
-    { value: 'patologia', label: 'Patologia' },
-    { value: 'medicina-interna', label: 'Medicina Interna' },
-    { value: 'cirurgia-geral', label: 'Cirurgia Geral' },
-    { value: 'oncologia', label: 'Oncologia' },
-    { value: 'endocrinologia', label: 'Endocrinologia' },
-    { value: 'reumatologia', label: 'Reumatologia' },
-    { value: 'pneumologia', label: 'Pneumologia' },
-    { value: 'gastroenterologia', label: 'Gastroenterologia' }
-  ];
 
   const handleSubmit = (e: React.FormEvent) => {
     e.preventDefault();
@@ -74,7 +47,7 @@ const Index = () => {
               <img 
                 src="/lovable-uploads/25ea1f7e-cc95-4a16-8d57-081933b730a9.png" 
                 alt="ME.MEDICS - Consultórios Compartilhados" 
-                className="h-16 w-auto"
+                className="h-24 w-auto"
               />
             </div>
             <CardTitle className="text-3xl font-bold bg-gradient-to-r from-blue-600 to-purple-600 bg-clip-text text-transparent">
@@ -100,7 +73,7 @@ const Index = () => {
                     <SelectValue placeholder="Selecione a localidade" />
                   </SelectTrigger>
                   <SelectContent>
-                    {localidadeOptions.map(option => (
+                    {LocalidadeOptions.map(option => (
                       <SelectItem key={option.value} value={option.value}>
                         {option.label}
                       </SelectItem>
@@ -115,7 +88,7 @@ const Index = () => {
                   Tipo de Login *
                 </Label>
                 <MultiSelect
-                  options={tipoLoginOptions}
+                  options={TipoLoginOptions}
                   value={formData.tipoLogin}
                   onChange={(values) => setFormData(prev => ({ ...prev, tipoLogin: values }))}
                   placeholder="Selecione os tipos de login"
@@ -139,7 +112,7 @@ const Index = () => {
                       type="text"
                       value={formData.nomeCompleto}
                       onChange={(e) => setFormData(prev => ({ ...prev, nomeCompleto: e.target.value }))}
-                      placeholder="Digite seu nome completo"
+                      placeholder="Digite o nome completo"
                       className="w-full"
                     />
                   </div>
@@ -157,7 +130,7 @@ const Index = () => {
                           type="email"
                           value={formData.email}
                           onChange={(e) => setFormData(prev => ({ ...prev, email: e.target.value }))}
-                          placeholder="Digite seu e-mail"
+                          placeholder="Digite o e-mail"
                           className="w-full"
                         />
                       </div>
@@ -165,14 +138,14 @@ const Index = () => {
                       {/* CPF */}
                       <div className="space-y-2">
                         <Label htmlFor="cpf" className="text-sm font-medium text-gray-700">
-                          CPF *
+                          CPF ou CPNJ *
                         </Label>
                         <Input
                           id="cpf"
                           type="text"
-                          value={formData.cpf}
-                          onChange={(e) => setFormData(prev => ({ ...prev, cpf: e.target.value }))}
-                          placeholder="Digite seu CPF"
+                          value={formData.document}
+                          onChange={(e) => setFormData(prev => ({ ...prev, document: e.target.value }))}
+                          placeholder="Digite o CPF ou CNPJ"
                           className="w-full"
                         />
                       </div>
@@ -197,14 +170,21 @@ const Index = () => {
                         <Label htmlFor="tipoConselho" className="text-sm font-medium text-gray-700">
                           Tipo do Conselho *
                         </Label>
-                        <Input
-                          id="tipoConselho"
-                          type="text"
-                          value={formData.tipoConselho}
-                          onChange={(e) => setFormData(prev => ({ ...prev, tipoConselho: e.target.value }))}
-                          placeholder="Ex: CRM, CRO, etc."
-                          className="w-full"
-                        />
+                        <Select
+                            value={formData.tipoConselho}
+                            onValueChange={(value) => setFormData(prev => ({ ...prev, tipoConselho: value }))}
+                        >
+                          <SelectTrigger className="w-full">
+                            <SelectValue placeholder="Selecione o conselho" />
+                          </SelectTrigger>
+                          <SelectContent>
+                            {TipoConselhoOptions.map(option => (
+                                <SelectItem key={option.value} value={option.value}>
+                                  {option.label}
+                                </SelectItem>
+                            ))}
+                          </SelectContent>
+                        </Select>
                       </div>
 
                       {/* Especialidade */}
@@ -220,7 +200,7 @@ const Index = () => {
                             <SelectValue placeholder="Selecione sua especialidade" />
                           </SelectTrigger>
                           <SelectContent>
-                            {especialidadeOptions.map(option => (
+                            {EspecialidadeOptions.map(option => (
                               <SelectItem key={option.value} value={option.value}>
                                 {option.label}
                               </SelectItem>
