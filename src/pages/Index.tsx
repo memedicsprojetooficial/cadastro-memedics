@@ -77,7 +77,8 @@ const Index = () => {
   };
 
   const showNomeCompleto = formData.tipoLogin.includes('rede') || formData.tipoLogin.includes('clavaconsult');
-  const showCamposCompletos = formData.tipoLogin.includes('rede') && formData.tipoLogin.includes('clavaconsult');
+  const showCamposCompletos = (formData.tipoLogin.includes('rede') && formData.tipoLogin.includes('clavaconsult')) || 
+                               (formData.tipoLogin.includes('clavaconsult') && formData.tipoLogin.length === 1);
 
   return (
     <div className="min-h-screen bg-gradient-to-br from-blue-50 via-white to-purple-50 p-4">
