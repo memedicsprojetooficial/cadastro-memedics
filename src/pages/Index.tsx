@@ -24,15 +24,56 @@ const Index = () => {
     especialidade: ''
   });
 
+  const [isLoading, setIsLoading] = useState(false);
 
-
-  const handleSubmit = (e: React.FormEvent) => {
+  const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
-    console.log('Dados do formulário:', formData);
-    toast({
-      title: "Formulário enviado!",
-      description: "Os dados foram enviados com sucesso.",
-    });
+    setIsLoading(true);
+    
+    try {
+      console.log('Enviando dados:', formData);
+      
+      const response = await fetch('https://integrations-n8n.ghqegs.easypanel.host/webhook-test/cadastro-memedics', {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json',
+        },
+        body: JSON.stringify(formData)
+      });
+
+      if (response.ok) {
+        const result = await response.json();
+        console.log('Resposta do servidor:', result);
+        
+        toast({
+          title: "Sucesso!",
+          description: "Formulário enviado com sucesso.",
+        });
+        
+        // Limpar o formulário após envio bem-sucedido
+        setFormData({
+          localidade: '',
+          tipoLogin: [],
+          nomeCompleto: '',
+          email: '',
+          document: '',
+          numeroConselho: '',
+          tipoConselho: '',
+          especialidade: ''
+        });
+      } else {
+        throw new Error(`Erro ${response.status}: ${response.statusText}`);
+      }
+    } catch (error) {
+      console.error('Erro ao enviar formulário:', error);
+      toast({
+        title: "Erro!",
+        description: "Falha ao enviar o formulário. Tente novamente.",
+        variant: "destructive"
+      });
+    } finally {
+      setIsLoading(false);
+    }
   };
 
   const showNomeCompleto = formData.tipoLogin.includes('rede') || formData.tipoLogin.includes('clavaconsult');
@@ -218,9 +259,9 @@ const Index = () => {
                 <Button 
                   type="submit" 
                   className="w-full bg-gradient-to-r from-blue-600 to-purple-600 hover:from-blue-700 hover:to-purple-700 text-white font-semibold py-3 rounded-lg transition-all duration-300 transform hover:scale-105"
-                  disabled={!formData.localidade || formData.tipoLogin.length === 0}
+                  disabled={!formData.localidade || formData.tipoLogin.length === 0 || isLoading}
                 >
-                  Enviar Formulário
+                  {isLoading ? "Enviando..." : "Enviar Formulário"}
                 </Button>
               </div>
             </form>
