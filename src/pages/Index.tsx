@@ -96,7 +96,7 @@ const Index = () => {
               Formulário de Cadastro
             </CardTitle>
             <CardDescription className="text-lg text-gray-600">
-              Preencha os dados para criar sua conta
+              Preencha os dados para criar a conta
             </CardDescription>
           </CardHeader>
           
