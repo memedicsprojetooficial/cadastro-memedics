@@ -33,7 +33,7 @@ const Index = () => {
     try {
       console.log('Enviando dados:', formData);
       
-      const response = await fetch('https://integrations-n8n.ghqegs.easypanel.host/webhook-test/cadastro-memedics', {
+      const response = await fetch(import.meta.env.VITE_N8N_WEBHOOK, {
         method: 'POST',
         headers: {
           'Content-Type': 'application/json',
