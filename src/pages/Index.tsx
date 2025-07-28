@@ -93,10 +93,10 @@ const Index = () => {
               />
             </div>
             <CardTitle className="text-3xl font-bold bg-gradient-to-r from-blue-600 to-purple-600 bg-clip-text text-transparent">
-              Formulário de Cadastro
+              Solicitação de Cadastro
             </CardTitle>
             <CardDescription className="text-lg text-gray-600">
-              Preencha os dados para criar a conta
+              Preencha os dados para solicitar a criação da conta
             </CardDescription>
           </CardHeader>
           
