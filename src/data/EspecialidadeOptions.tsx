@@ -18,7 +18,8 @@ const EspecialidadeOptions = [
     { value: 'endocrinologia', label: 'Endocrinologia' },
     { value: 'reumatologia', label: 'Reumatologia' },
     { value: 'pneumologia', label: 'Pneumologia' },
-    { value: 'gastroenterologia', label: 'Gastroenterologia' }
+    { value: 'gastroenterologia', label: 'Gastroenterologia' },
+    { value: 'nefrologia', label: 'Nefrologia' }
 ];
 
 export default EspecialidadeOptions;
